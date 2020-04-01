@@ -56,7 +56,7 @@ export PATH=$ANACONDA_HOME/bin:$PATH
 
 ### Spark
 
-Download from https://spark.apache.org/downloads.html (Use version 2.2.1, prebuilt for Apache Hadoop 2.7). Untar and add executables to your PATH, as well as Python libraries to PYTHONPATH
+Download from https://spark.apache.org/downloads.html (Use version 2.4.5, prebuilt for Apache Hadoop 2.7). Untar and add executables to your PATH, as well as Python libraries to PYTHONPATH
 
 ```
 export SPARK_HOME=where_you_untarred_spark
