@@ -65,6 +65,8 @@ Finally, give recursive permission to all for writing to it (ease the sharing wi
 chmod -R a+rwx .
 ```
 
+(or the equivalent command for Windows).
+
 The Docker container should now be able to read/write to your **host ```BigDataAnalytics_INFOH515``` folder**.
 
 ### 1.2. Start container
@@ -76,7 +78,7 @@ The Docker container should now be able to read/write to your **host ```BigDataA
 From the ```BigDataAnalytics_INFOH515``` folder, start the container with
 
 ```
-docker run -v `pwd`:/home/guest/host -p 8888:8888 -p 4040:4040 -p 23:22 -it giobbu/kafkasparkgio bash
+docker run -v `pwd`:/home/guest/host -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
 
 ```
 
@@ -113,15 +115,18 @@ where 'containerIP' is the IP of th container (127.0.0.1 on Linux). Password is 
 
 ### 1.2.2. Start Services 
 
-Once run, you are logged in as root in the container. Run the startup_script.sh (in /usr/bin) to start
+Once run, you are logged in as root in the container. Run the startup_script.sh (in /usr/bin), with: 
+
+```
+kafka_startup_script.sh
+```
+
+to start:
 
 * SSH server. You can connect to the container using user 'guest' and password 'guest'
 * Zookeeper server
 * Kafka server
 
-```
-startup_script.sh
-```
 
 ### 1.2.3. Connect, open notebook and start streaming
 
@@ -139,13 +144,6 @@ notebook
 
 and connect from your browser at port host:8888 (where 'host' is the IP for your host. If run locally on your computer, this should be 127.0.0.1 or 192.168.99.100, check Docker documentation)
 
-#### Start Kafka producer
-
-Open OBUcsvToKafka.ipynb and run all cells.
-
-#### Start Kafka receiver
-
-Open sparkStreamingPredictionsOBU.ipynb and run cells up to start streaming.
 
 #### Connect to Spark UI
 
@@ -194,4 +192,6 @@ The [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) o
 In case your machine has more than one hard disk two solutions exists:
 - Either the BigDataAnalytics_INFOH515 folder has to be located on the main hard drive (C:) 
 - Or, a manual mountpoint to the second hard drive must be created in the configuration of VirtualBox (the provisioner running the virtual machine containing Docker Engine) as described [here](https://stackoverflow.com/questions/48828406/unable-to-share-volume-with-docker-toolbox-on-windows-10).
+
+The same problem could appear if you are using [Docker on Windows](https://docs.docker.com/docker-for-windows/install/) (instead of the Docker Toolbox), a solution can be found [here](https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c).
 
