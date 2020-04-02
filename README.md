@@ -1,6 +1,6 @@
 # [INFO-H515 - Big Data Scalable Analytics](https://uv.ulb.ac.be/course/view.php?id=85246)
 
-#### *Jacopo De Stefani, Théo Verhelst and Gianluca Bontempi* - [Machine Learning Group](http://mlg.ulb.ac.be) 
+#### *Jacopo De Stefani, Giovanni Buroni, Théo Verhelst and Gianluca Bontempi* - [Machine Learning Group](http://mlg.ulb.ac.be)
 
 The course slides (analytics part) are available in the `Analytics_Course_Slides` folder. 
 

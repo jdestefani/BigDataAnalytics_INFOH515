@@ -1,6 +1,8 @@
 # [INFO-H515 - Big Data Scalable Analytics](https://uv.ulb.ac.be/course/view.php?id=85246)
 # Docker container for the course and for Big Data Geospatial Analysis in Kafka & Spark Streaming (PySpark)
 
+## Developed by Giovanni Buroni (Dockerfile), Jacopo De Stefani (Windows fixes)
+
 This Dockerfile sets up a complete streaming environment for experimenting with Kafka and Spark streaming (PySpark). It installs
 
 * Kafka 2.12-2.3;
