@@ -1,7 +1,7 @@
 # [INFO-H515 - Big Data Scalable Analytics](https://uv.ulb.ac.be/course/view.php?id=85246)
 # Docker container for the course and for Big Data Geospatial Analysis in Kafka & Spark Streaming (PySpark)
 
-## Developed by Giovanni Buroni (Dockerfile), Jacopo De Stefani (Windows fixes)
+## Developed by Giovanni Buroni (Dockerfile), Jacopo De Stefani (Windows fixes) 
 
 This Dockerfile sets up a complete streaming environment for experimenting with Kafka and Spark streaming (PySpark). It installs
 
@@ -40,6 +40,8 @@ In order to avoid building the image from scratch, a prebuilt image is made avai
 ### 1.1. Pull image
 
 #### Pull image and create a folder for your Project
+
+**N.B.** - For the users of the Docker Toolbox for Windows, the following commands have to be run in the Docker Toolbox terminal.
 
 The image is called ```ulb_infoh515``` and is available from DockerHub (Note: image is 7.7GB, make sure you have a reasonably good Internet conection).
 
@@ -86,6 +88,8 @@ docker run -v `pwd`:/home/guest/host -p 8888:8888 -p 4040:4040 -p 23:22 -it jdes
 
 #### Windows (PowerShell with Windows Linux Subsystem (WSL) installed)
 
+**N.B.** - For the users of the Docker Toolbox for Windows, the following commands have to be run in a PowerShell terminal.
+
 ```
 $nixPath="$(wsl wslpath -a '$PWD')".substring(10); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
 
@@ -93,11 +97,12 @@ $nixPath="$(wsl wslpath -a '$PWD')".substring(10); docker run -v ${nixPath}:/hom
 
 #### Windows (PowerShell without Windows Linux Subsystem (WSL) installed)
 
-```
-$nixPath = (($pwd.Path -replace "\\","/") -replace ":","").ToLower().Trim("/"); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
+**N.B.** - For the users of the Docker Toolbox for Windows, the following commands have to be run in a PowerShell terminal.
 
 ```
+$nixPath = (($pwd.Path -replace "\\","/") -replace ":","").Trim("/"); $nixPath = "/"+$nixPath.substring(0,1).toLower()+$nixPath.substring(1); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
 
+```
 
 Notes
 
