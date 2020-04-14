@@ -33,6 +33,16 @@ For more information on Docker, see:
 
 We **strongly** encourage you to follow the tutorial, and learn how to build, run, pull and push a container.
 
+**N.B.** - The installation procedure on Windows depends on the Windows version, further details are available in the following section of the README.
+
+### 0.1 Windows specific installation instructions
+
+On Windows, two different versions of the Docker Community Edition exists: Docker Desktop and Docker Toolbox for Windows.
+
+- If your PC is running **Windows 10 64-bit: Pro, Enterprise, or Education (Build 15063 or later)**, then you need to install Docker Desktop as described in https://docs.docker.com/docker-for-windows/install/
+
+- In for any other Windows 10 version and/or previous versions of Windows, you will need to install the Docker Toolbox for Windows as described in https://docs.docker.com/toolbox/toolbox_install_windows/
+
 ## 1. Get started
 
 In order to avoid building the image from scratch, a prebuilt image is made available from DockerHub, see below.
@@ -69,8 +79,6 @@ Finally, give recursive permission to all for writing to it (ease the sharing wi
 chmod -R a+rwx .
 ```
 
-(or the equivalent command for Windows).
-
 The Docker container should now be able to read/write to your **host ```BigDataAnalytics_INFOH515``` folder**.
 
 ### 1.2. Start container
@@ -86,41 +94,50 @@ docker run -v `pwd`:/home/guest/host -p 8888:8888 -p 4040:4040 -p 23:22 -it jdes
 
 ```
 
-#### Windows (PowerShell with Windows Linux Subsystem (WSL) installed)
+#### Windows 
 
-**N.B.** - For the users of the Docker Toolbox for Windows, the following commands have to be run in a PowerShell terminal.
+For Windows, the launching procedure is as follows:
 
-```
-$nixPath="$(wsl wslpath -a '$PWD')".substring(10); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
-
-```
-
-#### Windows (PowerShell without Windows Linux Subsystem (WSL) installed)
-
-**N.B.** - For the users of the Docker Toolbox for Windows, the following commands have to be run in a PowerShell terminal.
-
+1. Start Docker Toolbox Quickstart Terminal and wait until the startup process is completed.
+2. Open a Windows Powershell terminal
+3. Run the following command in a PowerShell terminal:
 ```
 $nixPath = (($pwd.Path -replace "\\","/") -replace ":","").Trim("/"); $nixPath = "/"+$nixPath.substring(0,1).toLower()+$nixPath.substring(1); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
 
 ```
 
-Notes
+**Notes:**
 
-* -v is used to share folder (right permissions given above will allow your changes to be saved on your computer). The "-v pwd:/home/guest/host" shares the local folder (i.e. folder containing Dockerfile, ipynb files, etc...) on your computer; 
-* -it starts the Docker container in interactive mode, so you can use the console and Bash;
-* -p is for sharing ports between the container and the host. 8888 is the notebook port, and 4040 the Spark UI port.
+* `-v` is used to share folder (right permissions given above will allow your changes to be saved on your computer). The "-v pwd:/home/guest/host" shares the local folder (i.e. folder containing Dockerfile, ipynb files, etc...) on your computer; 
+* `-it` starts the Docker container in interactive mode, so you can use the console and Bash;
+* `-p` is for sharing ports between the container and the host. 8888 is the notebook port, and 4040 the Spark UI port.
 
+### 1.2.2. Connect, open notebook and start streaming
 
-SSH allows to get a onnection to the container
+Once the Docker has been launched, connect as user 'guest' and go to 'shared' folder (shared with the host), with the following commands:
 
 ```
-ssh -p 23 guest@containerIP
+su guest
 ```
 
-where 'containerIP' is the IP of th container (127.0.0.1 on Linux). Password is 'guest'.
+```
+cd shared
+```
+
+Start Jupyter notebook
+
+```
+notebook
+```
+
+and connect from your web browser of choice at port host:8888 (where 'host' is the IP for your host. If run locally on your computer, this should be 127.0.0.1 or 192.168.99.100, check Docker documentation).
+
+**N.B. - For Windows users:** Some users have reported problems connecting to the Docker using Internet Explorer and Edge, using Chrome or Firefox, should solve these issues. 
 
 
-### 1.2.2. Start Services 
+### 1.2.3. Start Kafka and related services
+
+**N.B.** The usage of Kafka will be required for the project and the practical sessions on Streaming Analytics. It is not required to run this part if Kafka is not needed in the practical.
 
 Once run, you are logged in as root in the container. Run the startup_script.sh (in /usr/bin), with: 
 
@@ -135,26 +152,21 @@ to start:
 * Kafka server
 
 
-### 1.2.3. Connect, open notebook and start streaming
+### 1.2.4. SSH connection
 
-Connect as user 'guest' and go to 'host' folder (shared with the host)
+** N.B.: ** When running the docker for the first time with the docker run command, it is not required to connect to it through ssh as the terminal where the commands will be run is already connected to the docker. SSH could be used to open multiple terminals connected to the Docker.
 
-```
-su guest
-```
-
-Start Jupyter notebook
+Once the container is running, it is possible to connect to it through SSH with the following command:
 
 ```
-notebook
+ssh -p 23 guest@containerIP
 ```
 
-and connect from your browser at port host:8888 (where 'host' is the IP for your host. If run locally on your computer, this should be 127.0.0.1 or 192.168.99.100, check Docker documentation)
-
+where 'containerIP' is the IP of the container (127.0.0.1 or 192.168.99.100 according to the system). Password is 'guest'.
 
 #### Connect to Spark UI
 
-It is available in your browser at port 4040
+It is available in your browser at port 4040.
 
 
 ## 2. Container configuration details
@@ -192,12 +204,14 @@ In this case, instead of connecting to the IP address of the localhost (i.e. 127
 
 For example, to connect to the Jupyter Notebook, you should open your browser at 192.168.99.100:8888
 
+Sometimes, the cause of this problem could be related to the used web browser (namely Internet Explorer and Edge), in this case, testing the same IP on a different browser (Chrome, Firefox) could solve the issue.
+
 #### Issue: Shared folder empty
 
 The [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) on Windows 10 Home shares by default only the primary hard drive (i.e. the one where Windows is installed -> C:).
 
 In case your machine has more than one hard disk two solutions exists:
-- Either the BigDataAnalytics_INFOH515 folder has to be located on the main hard drive (C:) 
+- Either the BigDataAnalytics_INFOH515 folder has to be located **on the main hard drive (C:) and inside the User folder (for example inside Documents, Desktop or Downloads).**
 - Or, a manual mountpoint to the second hard drive must be created in the configuration of VirtualBox (the provisioner running the virtual machine containing Docker Engine) as described [here](https://stackoverflow.com/questions/48828406/unable-to-share-volume-with-docker-toolbox-on-windows-10).
 
 The same problem could appear if you are using [Docker on Windows](https://docs.docker.com/docker-for-windows/install/) (instead of the Docker Toolbox), a solution can be found [here](https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c).
