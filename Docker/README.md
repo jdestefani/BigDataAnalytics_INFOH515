@@ -90,8 +90,7 @@ The Docker container should now be able to read/write to your **host ```BigDataA
 From the ```BigDataAnalytics_INFOH515``` folder, start the container with
 
 ```
-docker run -v `pwd`:/home/guest/host -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
-
+docker run -v `pwd`:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
 ```
 
 #### Windows 
@@ -103,7 +102,6 @@ For Windows, the launching procedure is as follows:
 3. Run the following command in a PowerShell terminal:
 ```
 $nixPath = (($pwd.Path -replace "\\","/") -replace ":","").Trim("/"); $nixPath = "/"+$nixPath.substring(0,1).toLower()+$nixPath.substring(1); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
-
 ```
 
 **Notes:**
