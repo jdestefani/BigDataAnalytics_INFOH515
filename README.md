@@ -1,12 +1,10 @@
 # [INFO-H515 - Big Data Scalable Analytics](https://uv.ulb.ac.be/course/view.php?id=85246)
 
-#### *Jacopo De Stefani, Giovanni Buroni, Théo Verhelst and Gianluca Bontempi* - [Machine Learning Group](http://mlg.ulb.ac.be)
-
-The course slides (analytics part) are available in the `Analytics_Course_Slides` folder. 
+#### *Jacopo De Stefani, Giovanni Buroni, Théo Verhelst and Gianluca Bontempi* - [Machine Learning Group](http://mlg.ulb.ac.be) 
 
 # Exercise classes - Overview 
 
-This repository contains the material for the exercise classes of the ULB/VUB Big Data Analytics master course (first semester 2018) - Advanced analytics part.
+This repository contains the material for the exercise classes of the ULB/VUB Big Data Analytics master course (first semester 2020) - Advanced analytics part.
 
 These hands-on sessions provide:
 
@@ -32,10 +30,6 @@ git clone https://github.com/jdestefani/BigDataAnalytics_INFOH515
 
 If using the course cluster, you will have to use SFTP to send this folder to the cluster. 
 
-## Check Spark is working
-
-After setting up your environment - see below, you should be able to run the notebooks in `Check_Setup`
-
 # Environment setup 
 
 These notebooks rely on different technologies and frameworks for Big Data and machine learning (Spark, Kafka, Keras and Tensorflow). We summarize below different ways to have your environment set up. 
@@ -56,7 +50,7 @@ export PATH=$ANACONDA_HOME/bin:$PATH
 
 ### Spark
 
-Download from https://spark.apache.org/downloads.html (Use version 2.4.5, prebuilt for Apache Hadoop 2.7). Untar and add executables to your PATH, as well as Python libraries to PYTHONPATH
+Download from https://spark.apache.org/downloads.html (Use version 2.2.1, prebuilt for Apache Hadoop 2.7). Untar and add executables to your PATH, as well as Python libraries to PYTHONPATH
 
 ```
 export SPARK_HOME=where_you_untarred_spark
@@ -100,14 +94,24 @@ In order to ease the setting-up of the environment, we also prepared a [Docker](
 
 Note that the [Dockerfile](https://github.com/jdestefani/BigDataAnalytics_INFOH515/blob/master/Docker/Dockerfile) script essentially follows the steps for the 'local' installation. 
 
+## Check if your setup is working
 
-#### Test with Check_Setup
+After setting up your environment (either in a Docker or your own machine) you should be able to run the notebook and scripts in `Check_Setup`
 
-* Upload notebook from  `Check_Setup/Demo_RDD_cluster.ipynb` 
+### Spark - Test with Check_Setup notebook
+
+* Open notebook from  `Check_Setup/Demo_RDD_local.ipynb` 
 * Run all cells
 
-Follow instructions in `Check_Setup/Demo_RDD_cluster.ipynb` to have access to Spark UI.
+Follow instructions in `Check_Setup/Demo_RDD_local.ipynb` to have access to Spark UI.
 
+### Kafka - Test with Check_Setup scripts
+
+1. Run the script `Check_Setup/0_kafka_startup.sh` to start Zookeeper and Kafka.  
+2. Run the script `Check_Setup/1_kafka_test_topic.sh` to check whether a topic can be created and deleted successfully.
+3. **In two separate terminals:**
+	1. Start first `Check_Setup/2_kafka_test_sender.sh`, and try sending some messages, by entering some text and concluding the message with the Enter key.
+	2. Start first `Check_Setup/3_kafka_test_receiver.sh`, and check that the messages sent by the sender are correctly received.
 
 ## FAQ
 
