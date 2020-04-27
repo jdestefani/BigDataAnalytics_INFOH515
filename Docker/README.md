@@ -90,7 +90,8 @@ The Docker container should now be able to read/write to your **host ```BigDataA
 From the ```BigDataAnalytics_INFOH515``` folder, start the container with
 
 ```
-docker run -v `pwd`:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
+docker run -v `pwd`:/home/guest/host -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
+
 ```
 
 #### Windows 
@@ -99,9 +100,10 @@ For Windows, the launching procedure is as follows:
 
 1. Start Docker Toolbox Quickstart Terminal and wait until the startup process is completed.
 2. Open a Windows Powershell terminal
-3. Run the following command in a PowerShell terminal:
+3. Run the following command in a PowerShell terminal, **from the ```BigDataAnalytics_INFOH515``` folder**:
 ```
 $nixPath = (($pwd.Path -replace "\\","/") -replace ":","").Trim("/"); $nixPath = "/"+$nixPath.substring(0,1).toLower()+$nixPath.substring(1); docker run -v ${nixPath}:/home/guest/shared -p 8888:8888 -p 4040:4040 -p 23:22 -it jdestefani/ulb_infoh515 bash
+
 ```
 
 **Notes:**
@@ -110,7 +112,7 @@ $nixPath = (($pwd.Path -replace "\\","/") -replace ":","").Trim("/"); $nixPath =
 * `-it` starts the Docker container in interactive mode, so you can use the console and Bash;
 * `-p` is for sharing ports between the container and the host. 8888 is the notebook port, and 4040 the Spark UI port.
 
-### 1.2.2. Connect, open notebook and start streaming
+### 1.2.2. Connect and launch notebook server
 
 Once the Docker has been launched, connect as user 'guest' and go to 'shared' folder (shared with the host), with the following commands:
 
@@ -152,7 +154,7 @@ to start:
 
 ### 1.2.4. SSH connection
 
-** N.B.: ** When running the docker for the first time with the docker run command, it is not required to connect to it through ssh as the terminal where the commands will be run is already connected to the docker. SSH could be used to open multiple terminals connected to the Docker.
+**N.B.:** When running the docker for the first time with the docker run command, it is not required to connect to it through ssh as the terminal where the commands will be run is already connected to the docker. SSH could be used to open multiple terminals connected to the Docker.
 
 Once the container is running, it is possible to connect to it through SSH with the following command:
 
