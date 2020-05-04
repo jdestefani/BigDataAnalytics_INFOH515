@@ -9,9 +9,9 @@ This repository contains the material for the exercise classes of the ULB/VUB Bi
 These hands-on sessions provide:
 
 * **Session 1** : An introduction to Spark and its Machine Learning (ML) library. The case study for the first session is a churn prediction problem: How to predict which customers will quit a subscription to a given service? The session covers the basics for loading and formatting a dataset for training an ML algorithm using Spark ML library, and illustrates the use of different Spark ML algorithms and accuracy metrics to address the prediction problem. 
-* **Sessions 2-4**: An in-depth coverage of the use of the Map/Reduce programming model for distributing machine learning algorithms, and their implementation in Spark. Sessions 2, 3, and 4 cover, respectively, the Map/Reduce implementations from scratch of
+* **Sessions 2 and 4**: An in-depth coverage of the use of the Map/Reduce programming model for distributing machine learning algorithms, and their implementation in Spark. Sessions 2, 3, and 4 cover, respectively, the Map/Reduce implementations from scratch of
 	* **Session 2**: Linear regression (ordinary least squares and stochastic gradient descent). The algorithms are applied on an artificial dataset, and illustrate the numpy and Map/Reduce implementations for OLS and SGD. 
-	* **Session 3**: Clustering with K-means. The algorithm is first applied on an artificial dataset, and then on a clustering problem for image compression.
+	* **Session 3**: Streaming analytics with Recursive Least Squares and model racing. The algorithms are implemented using Spark Streaming, on a data stream coming from a Kafka broker. The RLS approach is then compared with established ML approaches.
 	* **Session 4**: Recommender system with alternating least squares, using as a case study a movie recommendation problem. 
 	
 	After detailing the Map/Reduce techniques for solving these problems, each session ends with an example on how to use the corresponding algorithm with Spark ML, and get insights into how Spark distributes the task using the Spark user interface.  
